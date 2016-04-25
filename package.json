@@ -1,0 +1,23 @@
+{
+  "name": "57_excercises_react",
+  "version": "1.0.0",
+  "description": "react solutions for programming excercises",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stjanis/57_excercises_react.git"
+  },
+  "author": "Janis Stipnieks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stjanis/57_excercises_react/issues"
+  },
+  "homepage": "https://github.com/stjanis/57_excercises_react#readme",
+  "dependencies": {
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1"
+  }
+}
