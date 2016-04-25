@@ -1,6 +1,5 @@
-// 1. prompt for user name
-// 2. say hello to user
-// 3. add random greetings
+// 1. prompt for user input
+// 2. display original string + it's length
 
 import React from 'react';
 
@@ -8,32 +7,20 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      txt: '',
-      greeting: ''
+      string: "",
+      count: ""
     }
-    this.getName = this.getName.bind(this);
+    this.update = this.update.bind(this);
   }
-  getName() {
-    var name = prompt("what is your name?");
-    if(name) {
-      this.setState({ txt: name });
-    } else {
-      this.getName();
-    }
-  }
-  setGreeting() {
-    var greetings = ['Hello', 'Hola', 'Hej', 'Labdien'];
-    this.setState({ greeting: greetings[Math.floor(Math.random() * greetings.length)] });
-  }
-  componentWillMount() {
-    this.getName();
-    this.setGreeting();
+  update(e) {
+    this.setState({ string: document.getElementById('text-1').value });
   }
   render() {
-    return (
+    return(
       <div>
-        <h1>{ this.state.greeting }, { this.state.txt }!</h1>
-        <p>{ this.state.txt }, how is your day?</p>
+        <input id="text-1" type="text" />
+        <button onClick={ this.update }>Count</button>
+        <p>{ this.state.string } = { this.state.string.length } characters</p>
       </div>
     )
   }
