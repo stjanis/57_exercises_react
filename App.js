@@ -1,28 +1,44 @@
-// 1. prompt for quote
-// 2. prompt for author
-// 3. add button
-// 4. on button click display author + quote
+// 1. prompt for noun
+// 2. prompt for verb
+// 3. prompt for adjective
+// 4. prompt for adverb
+// 5. add button
+// 6. on button click display sentence
 
 import React from 'react';
-import ReactDom from 'react-dom';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      quote: 'I know nothing',
-      author: 'Jon Snow',
+      noun: '',
+      verb: '',
+      adjective: '',
+      adverb: '',
       clicked: false
     }
-    this.update = this.update.bind(this);
-    this.getQuote = this.getQuote.bind(this);
-    this.getAuthor = this.getAuthor.bind(this);
+    this.checkClick = this.checkClick.bind(this);
+    this.getTxt = this.getTxt.bind(this);
   }
-  update(e) {
+  checkClick(e) {
     this.state.clicked ? this.setState({ clicked: false }) : this.setState({ clicked: true })
   }
-  getQuote(e) {
-    this.setState({ quote: e.target.value });
+  getTxt(e) {
+    var targetInput = e.target.id;
+    switch(targetInput) {
+      case 'app-noun':
+        this.setState({ noun: e.target.value });
+        break;
+      case 'app-verb':
+        this.setState({ verb: e.target.value });
+        break;
+      case 'app-adjective':
+        this.setState({ adjective: e.target.value });
+        break;
+      case 'app-adverb':
+        this.setState({ adverb: e.target.value });
+        break;
+    }
   }
   getAuthor(e) {
     this.setState({ author: e.target.value });
@@ -30,14 +46,24 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h2>Quote</h2>
-        <input type="text" id="app-quote" onChange={this.getQuote} />
-        <h2>Author</h2>
-        <input type="text" id="app-author" onChange={this.getAuthor} />
+        <h2>Noun</h2>
+        <input type="text" id="app-noun" onChange={this.getTxt} />
+        <h2>Verb</h2>
+        <input type="text" id="app-verb" onChange={this.getTxt} />
         <br/>
-        <button onClick={this.update}>{this.state.clicked ? 'Hide quote' : 'Show quote'}</button>
-        <div id="quote">
-          { this.state.clicked ? <Quote quote={this.state.quote} author={this.state.author} /> : null }
+        <h2>Adjective</h2>
+        <input type="text" id="app-adjective" onChange={this.getTxt} />
+        <br/>
+        <h2>Adverb</h2>
+        <input type="text" id="app-adverb" onChange={this.getTxt} />
+        <br/>
+        <button onClick={this.checkClick}>{this.state.clicked ? 'Hide text' : 'Show result'}</button>
+        <div id="result-wrap">
+          { this.state.clicked ? <Quote
+            noun={this.state.noun}
+            verb={this.state.verb}
+            adjective={this.state.adjective}
+            adverb={this.state.adverb} /> : null }
         </div>
       </div>
     )
@@ -47,60 +73,9 @@ class App extends React.Component {
 const Quote = (props) => {
   return (
     <div>
-      <h2>{props.author} says: &quot;{props.quote}&quot;</h2>
+      <h2>Do you {props.verb} your {props.adjective} {props.noun} {props.adverb}?</h2>
     </div>
   )
 }
 
 export default App;
-
-
-
-// class App extends React.Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       quote: "",
-//       name: "",
-//       showQuote: false
-//     }
-//     this.getQuote = this.getQuote.bind(this);
-//     this.getName = this.getName.bind(this);
-//     this.update = this.update.bind(this);
-//   }
-//   getQuote(e) {
-//     this.setState({ quote: e.target.value });
-//   }
-//   getName(e) {
-//     this.setState({ name: e.target.value });
-//   }
-//   update(e) {
-//     // var someText = document.createTextNode(this.state.name + ' says, "' + this.state.quote + '"');
-//     // document.getElementById('test').appendChild(someText);
-//     this.setState({ showQuote: true })
-//   }
-//   render() {
-//     return(
-//       <div id="quote-wrap">
-//         <h2>What is the quote?</h2>
-//         <input id="quote" type="text" onChange={this.getQuote} />
-//         <br />
-//         <h2>Who said it?</h2>
-//         <input id="name" type="text" onChange={this.getName} />
-//         <br />
-//         <button onClick={ this.update }>Output Quote</button>
-//         {this.state.showQuote ? <Quote /> : null}
-//       </div>
-//     )
-//   }
-// }
-//
-// class Quote extends React.Component {
-//   render() {
-//     return (
-//       <p id="test">Janis Stipnieks says, &quot;hej hej&quot;</p>
-//     )
-//   }
-// }
-//
-// export default App;
